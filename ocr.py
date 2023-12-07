@@ -1,5 +1,7 @@
-from pickle import FALSE
 import pyautogui
+import os
+import time
+os.environ['DISPLAY'] = ':0'
 from paddleocr import PaddleOCR
 ocr = PaddleOCR(use_angle_cls=False, lang='en', show_log=False, max_text_length=1, use_gpu=False)
 result = [[],[],[],[],[],[],[],[],[]]
@@ -18,18 +20,25 @@ def startgrab():
     answer = input("Is the Bluestacks window in fullscreen? (Y/n)\n ==>")
     if answer.lower() == "n":
         return print("Please maximize the Bluestacks window!")    
-    print("Starting S-Grab™")
-    # this loop is responsible for the logic and Screenshotting. The images are saved into the "screenshots" folder. 
+    print("Starting ScreenGrab™")
+    time.sleep(3)
     for x in range(9):
         for y in range(9):
             pyautogui.screenshot(f"./screenshots/sec{x}{y}.png",region=(ssPos[x][y][0],ssPos[x][y][1],73,71))
-            print(f"Screenshot #{y} taken.")
     print("S-Grab finished, initalizing OCR")
     for x in range(9):
         for y in range(9):
             readdata = ocr.ocr(f"./screenshots/sec{x}{y}.png", cls=False)
-            #[[[[11.0, 6.0], [57.0, 6.0], [57.0, 68.0], [11.0, 68.0]], ('7', 0.9998064637184143)]]
-            if readdata == []:
+            #sample data from the OCR = [[[[[11.0, 6.0], [58.0, 6.0], [58.0, 68.0], [11.0, 68.0]], ('7', 0.9997418522834778)]]]
+            if readdata == [[]]:
                 result[x].append(0)
             else:
-                result[x].append(int(readdata[0][1][0]))
+                result[x].append(int(readdata[0][0][1][0]))
+def startmovement():
+    for x in range(0,9):
+        pyautogui.click(ssPos[x][0][0]+20, ssPos[x][0][1]+20)
+        for y in range(0,9):
+            pyautogui.press(str(result[x][y]))
+            pyautogui.press('right')    
+            time.sleep(0.4)
+    return

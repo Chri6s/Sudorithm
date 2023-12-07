@@ -3,8 +3,9 @@ import mouse
 def start():
     startgrab()
     startSolve()
+    startmovement()
 if __name__ == "__main__":
     try:
         start()
-    expect:
+    finally:
         print("Exception thrown.")

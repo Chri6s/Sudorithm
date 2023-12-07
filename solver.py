@@ -14,8 +14,6 @@ def solve(grid, row, col, num):
     for x in range(9):
         if grid[x][col] == num:
             return False
- 
- 
     startRow = row - row % 3
     startCol = col - col % 3
     for i in range(3):
