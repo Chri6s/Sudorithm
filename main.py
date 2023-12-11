@@ -4,6 +4,15 @@ def start():
     startgrab()
     startSolve()
     startmovement()
+class colors:
+    reset = "\033[0m"
+    class: 
+        prefilled = "\033[31m"
+        generated = "\033[32m"
+
+
+
+
 if __name__ == "__main__":
     try:
         start()

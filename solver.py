@@ -1,4 +1,5 @@
 from ocr import *
+from main import colors
 M = 9
 grid = result
 def puzzle(a):
@@ -6,6 +7,9 @@ def puzzle(a):
         for j in range(M):
             print(a[i][j],end = " ")
         print()
+    print(colors.reset)
+
+
 def solve(grid, row, col, num):
     for x in range(9):
         if grid[row][x] == num:
@@ -21,7 +25,7 @@ def solve(grid, row, col, num):
             if grid[i + startRow][j + startCol] == num:
                 return False
     return True
- 
+
 def Suduko(grid, row, col):
  
     if (row == M - 1 and col == M):
@@ -40,6 +44,8 @@ def Suduko(grid, row, col):
                 return True
         grid[row][col] = 0
     return False
+
+
 def startSolve():
     if (Suduko(grid, 0, 0)):
         print("Solving...")
