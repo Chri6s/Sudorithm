@@ -2,7 +2,6 @@
 from main import unsolved, colors
 M = 9
 savedUnsolved = unsolved
-grid = unsolved
 def puzzle(unsolvedGrid, solvedGrid):
     for i in range(M):
         for j in range(M):
@@ -12,7 +11,15 @@ def puzzle(unsolvedGrid, solvedGrid):
                 print(colors.fg.prefilled + solvedGrid, end=" ")
         print()
     print(colors.reset)
-
+    # for i in range(M):
+    #     for j in range(M):
+    #         if j == 2 or j == 5:
+    #             print(a[i][j],end = " ")
+    #         else:
+    #             print(a[i][j],end = "   ")
+    #     if i == 2 or i == 5:
+    #         print()
+    #     print()
 
 def solve(grid, row, col, num):
     for x in range(9):
@@ -51,9 +58,9 @@ def Suduko(grid, row, col):
 
 
 def startSolve():
-    if (Suduko(grid, 0, 0)):
+    if (Suduko(unsolved, 0, 0)):
         print("Solving...")
-        puzzle(savedUnsolved, grid)
+        puzzle(savedUnsolved, unsolved)
 
     else:
         print("Solution does not exist:(")
