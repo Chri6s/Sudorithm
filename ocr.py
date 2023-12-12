@@ -1,10 +1,9 @@
-import pyautogui
 import os
 import time
+from main import PaddleOCR
 os.environ['DISPLAY'] = ':0'
-from paddleocr import PaddleOCR
 ocr = PaddleOCR(use_angle_cls=False, lang='en', show_log=False, max_text_length=1, use_gpu=False)
-result = [[],[],[],[],[],[],[],[],[]]
+unsolved = [[],[],[],[],[],[],[],[],[]]
 ssPos = [
     [[342, 187],[417, 187],[495,187],[575,187],[650,187],[729,187],[808,187],[885,187],[963,187]],
     [[342, 260],[417, 260],[495,260],[575,260],[650,260],[729,260],[808,260],[885,260],[963,260]],
@@ -31,14 +30,14 @@ def startgrab():
             readdata = ocr.ocr(f"./screenshots/sec{x}{y}.png", cls=False)
             #sample data from the OCR = [[[[[11.0, 6.0], [58.0, 6.0], [58.0, 68.0], [11.0, 68.0]], ('7', 0.9997418522834778)]]]
             if readdata == [[]]:
-                result[x].append(0)
+                unsolved[x].append(0)
             else:
-                result[x].append(int(readdata[0][0][1][0]))
+                unsolved[x].append(int(readdata[0][0][1][0]))
 def startmovement():
     for x in range(0,9):
         pyautogui.click(ssPos[x][0][0]+20, ssPos[x][0][1]+20)
         for y in range(0,9):
-            pyautogui.press(str(result[x][y]))
+            pyautogui.press(str(unsolved[x][y]))
             pyautogui.press('right')    
             time.sleep(0.4)
     return

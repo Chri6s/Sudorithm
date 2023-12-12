@@ -1,11 +1,15 @@
-from ocr import *
-from main import colors
+#from ocr import *
+from main import unsolved, colors
 M = 9
-grid = result
-def puzzle(a):
+savedUnsolved = unsolved
+grid = unsolved
+def puzzle(unsolvedGrid, solvedGrid):
     for i in range(M):
         for j in range(M):
-            print(a[i][j],end = " ")
+            if unsolvedGrid[i][j] == 0:
+                print(colors.fg.generated + solvedGrid, end=" ")
+            else:
+                print(colors.fg.prefilled + solvedGrid, end=" ")
         print()
     print(colors.reset)
 
@@ -49,7 +53,7 @@ def Suduko(grid, row, col):
 def startSolve():
     if (Suduko(grid, 0, 0)):
         print("Solving...")
-        puzzle(grid)
+        puzzle(savedUnsolved, grid)
 
     else:
         print("Solution does not exist:(")
