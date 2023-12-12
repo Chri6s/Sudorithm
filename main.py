@@ -6,7 +6,7 @@ def start():
     startmovement()
 class colors:
     reset = "\033[0m"
-    class: 
+    class fg: 
         prefilled = "\033[31m"
         generated = "\033[32m"
 
