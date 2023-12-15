@@ -1,6 +1,6 @@
 M = 9
-grid = [[],[],[],[],[],[],[],[],[]]
-unsolvedGrid = [[],[],[],[],[],[],[],[],[]]
+grid = None
+unsolvedGrid = None
 class colors:
     reset = "\033[0m"
     class fg: 
@@ -9,6 +9,8 @@ class colors:
     class bg:
         black = "\033[40m"
 def start():
+    grid = [[],[],[],[],[],[],[],[],[]]
+    unsolvedGrid = [[],[],[],[],[],[],[],[],[]]
     bemenet = input(">")
     if "," in bemenet:    
         for x in range(0,9):
@@ -32,23 +34,16 @@ def puzzle(a, unsolvedGrid):
         for j in range(M):
             if j == 2 or j == 5:
                 if unsolvedGrid[i][j] == 0:
-                    print(colors.bg.black + colors.fg.generated + str(a[i][j]) + colors.reset,end = "   ")
+                    print(colors.fg.generated + str(a[i][j]) + colors.reset,end = "   ")
                 else:
-                    print(colors.bg.black + colors.fg.prefilled + str(a[i][j]) + colors.reset,end = "   ")
+                    print(colors.fg.prefilled + str(a[i][j]) + colors.reset,end = "   ")
             else:
                 if unsolvedGrid[i][j] == 0:
-                    print(colors.bg.black + colors.fg.generated + str(a[i][j]),end = " " + colors.reset)
+                    print(colors.fg.generated + str(a[i][j]),end = " " + colors.reset)
                 else:
-                    print(colors.bg.black + colors.fg.prefilled + str(a[i][j]),end = " " + colors.reset)
+                    print(colors.fg.prefilled + str(a[i][j]),end = " " + colors.reset)
         if i == 2 or i == 5:
             print()
-        print()
-    for i in range(M):
-        for j in range(M):
-            if unsolvedGrid[i][j] == 0:
-                print(colors.fg.generated + str(a[i][j]), end=" ")
-            else:
-                print(colors.fg.prefilled + str(a[i][j]), end=" ")
         print()
     print(colors.reset)
 def solve(grid, row, col, num):
@@ -86,4 +81,8 @@ def Suduko(grid, row, col):
         grid[row][col] = 0
     return False
 if __name__ == "__main__":
-    start()
+    try:
+        while True:
+            start()
+    except KeyboardInterrupt:
+        pass
