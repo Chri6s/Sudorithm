@@ -5,10 +5,18 @@ savedUnsolved = unsolved
 def puzzle(unsolvedGrid, solvedGrid):
     for i in range(M):
         for j in range(M):
-            if unsolvedGrid[i][j] == 0:
-                print(colors.fg.generated + solvedGrid, end=" ")
+            if j == 2 or j == 5:
+                if unsolvedGrid[i][j] == 0:
+                    print(colors.fg.generated + str(solvedGrid[i][j]) + colors.reset,end = "   ")
+                else:
+                    print(colors.fg.prefilled + str(solvedGrid[i][j]) + colors.reset,end = "   ")
             else:
-                print(colors.fg.prefilled + solvedGrid, end=" ")
+                if unsolvedGrid[i][j] == 0:
+                    print(colors.fg.generated + str(solvedGrid[i][j]),end = " " + colors.reset)
+                else:
+                    print(colors.fg.prefilled + str(solvedGrid[i][j]),end = " " + colors.reset)
+        if i == 2 or i == 5:
+            print()
         print()
     print(colors.reset)
     # for i in range(M):
@@ -61,6 +69,5 @@ def startSolve():
     if (Suduko(unsolved, 0, 0)):
         print("Solving...")
         puzzle(savedUnsolved, unsolved)
-
     else:
         print("Solution does not exist:(")

@@ -29,19 +29,19 @@ def start():
 
     else:
         print("Solution does not exist:(")
-def puzzle(a, unsolvedGrid):
+def puzzle(solvedGrid, unsolvedGrid):
     for i in range(M):
         for j in range(M):
             if j == 2 or j == 5:
                 if unsolvedGrid[i][j] == 0:
-                    print(colors.fg.generated + str(a[i][j]) + colors.reset,end = "   ")
+                    print(colors.fg.generated + str(solvedGrid[i][j]) + colors.reset,end = "   ")
                 else:
-                    print(colors.fg.prefilled + str(a[i][j]) + colors.reset,end = "   ")
+                    print(colors.fg.prefilled + str(solvedGrid[i][j]) + colors.reset,end = "   ")
             else:
                 if unsolvedGrid[i][j] == 0:
-                    print(colors.fg.generated + str(a[i][j]),end = " " + colors.reset)
+                    print(colors.fg.generated + str(solvedGrid[i][j]),end = " " + colors.reset)
                 else:
-                    print(colors.fg.prefilled + str(a[i][j]),end = " " + colors.reset)
+                    print(colors.fg.prefilled + str(solvedGrid[i][j]),end = " " + colors.reset)
         if i == 2 or i == 5:
             print()
         print()

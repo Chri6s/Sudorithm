@@ -1,6 +1,7 @@
 import os
 import time
-from main import PaddleOCR
+from paddleocr import PaddleOCR
+import pyautogui
 os.environ['DISPLAY'] = ':0'
 ocr = PaddleOCR(use_angle_cls=False, lang='en', show_log=False, max_text_length=1, use_gpu=False)
 unsolved = [[],[],[],[],[],[],[],[],[]]

@@ -1,22 +1,9 @@
 from solver import *
-#import mouse
-import argparse
-#import pyautogui
-#from paddleocr import PaddleOCR
+#import argparse
 # sample data
 # 0, 6, 0, 8, 5, 0, 0, 0, 7, 7, 0, 5, 2, 0, 3, 8, 0, 0, 0, 0, 2, 0, 9, 0, 5, 0, 0, 0, 4, 0, 9, 0, 8, 2, 7, 3, 0, 0, 7, 5, 0, 6, 4, 0, 8, 0, 9, 0, 0, 4, 0, 1, 0, 6, 0, 7, 3, 0, 8, 5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 8, 0, 1, 0, 0, 0, 0, 3, 4, 0
-
 unsolved = [[],[],[],[],[],[],[],[],[]]
-
-
-
-parser = argparse.ArgumentParser()
-config = {
-    "useDecoder": True,
-    "verbose": False
-}
 def start():
-    print("----MANUAL INPUT MODE----")
     #startgrab()
     bemenet = input(">")
     for x in range(0,9):
@@ -29,13 +16,12 @@ class colors:
     class fg: 
         prefilled = "\033[31m"
         generated = "\033[32m"
-
-
-
-
-parser.add_argument("-dd", "--disable-decoder", action="store")
+    class bg:
+        black = "\033[40m"
 if __name__ == "__main__":
     try:
         start()
+    except KeyboardInterrupt:
+        pass
     finally:
         print("Exception thrown.")
