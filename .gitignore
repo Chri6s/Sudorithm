@@ -6,3 +6,5 @@ logs
 # cache
 __pychache__
 screenshots/*
+# vscode settings file
+.vscode
