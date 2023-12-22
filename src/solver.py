@@ -1,23 +1,23 @@
-from decoder import *
-from main import unsolved, colors, savedUnsolved
+import decoder
+import main
 M = 9 # define the board size, its not really useful in our case, but, its here for code clarity.
 def puzzle(unsolvedGrid, solvedGrid):
     for i in range(M):
         for j in range(M):
             if j == 2 or j == 5:
                 if unsolvedGrid[i][j] == 0:
-                    print(colors.fg.generated + str(solvedGrid[i][j]) + colors.reset,end = "   ")
+                    print(main.colors.fg.generated + str(solvedGrid[i][j]) + main.colors.reset,end = "   ")
                 else:
-                    print(colors.fg.prefilled + str(solvedGrid[i][j]) + colors.reset,end = "   ")
+                    print(main.colors.fg.prefilled + str(solvedGrid[i][j]) + main.colors.reset,end = "   ")
             else:
                 if unsolvedGrid[i][j] == 0:
-                    print(colors.fg.generated + str(solvedGrid[i][j]),end = " " + colors.reset)
+                    print(main.colors.fg.generated + str(solvedGrid[i][j]),end = " " + main.colors.reset)
                 else:
-                    print(colors.fg.prefilled + str(solvedGrid[i][j]),end = " " + colors.reset)
-        if i == (2 or 5):
+                    print(main.colors.fg.prefilled + str(solvedGrid[i][j]),end = " " + main.colors.reset)
+        if (i == 2) or (i == 5):
             print()
         print()
-    print(colors.reset)
+    print(main.colors.reset)
 def solve(grid, row, col, num):
     for x in range(9):
         if grid[row][x] == num:
@@ -52,11 +52,3 @@ def Suduko(grid, row, col):
                 return True
         grid[row][col] = 0
     return False
-
-
-def startSolve():
-    if (Suduko(unsolved, 0, 0)):
-        print("Solving...")
-        puzzle(savedUnsolved, unsolved)
-    else:
-        print("Solution does not exist:(")
