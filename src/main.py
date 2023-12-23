@@ -1,8 +1,6 @@
-import solver
 import sys
 # sample data
-# 0, 6, 0, 8, 5, 0, 0, 0, 7, 7, 0, 5, 2, 0, 3, 8, 0, 0, 0, 0, 2, 0, 9, 0, 5, 0, 0, 0, 4, 0, 9, 0, 8, 2, 7, 3, 0, 0, 7, 5, 0, 6, 4, 0, 8, 0, 9, 0, 0, 4, 0, 1, 0, 6, 0, 7, 3, 0, 8, 5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 8, 0, 1, 0, 0, 0, 0, 3, 4, 0
-unsolved = None
+# 
 config = {
     "manualInput": 0,
     "disableDecoder": 0,
@@ -24,8 +22,16 @@ def start():
             config["repeater"] = 1
     if config["manualInput"] == 1 and config["disableOCR"] == 1:
         Uinput = input(">")
-
-        file.write(unsolved)
+        if "," in Uinput:    
+            for x in range(0,9):
+                for y in range(0,9):
+                    unsolved[x].append(int(Uinput.split(" ")[y+9*x].strip(",")))
+        else:
+            for x in range(0,9):
+                for y in range(0,9):
+                    unsolved[x].append(int([*Uinput][y+9*x]))
+        file.write(convert.toString("", unsolved))
+        file.close()
         startSolve(unsolved)
     #startgrab()
     #startmovement()
@@ -33,12 +39,13 @@ def start():
     #     start()
     # else: 
     #     return
-def startSolve(inputGrid):
-    if (solver.Suduko(inputGrid, 0, 0)):
-        print("Solving...")
-        solver.puzzle(savedUnsolved, unsolved)
-    else:
-        print("Solution does not exist:(")
+# def startSolve(inputGrid):
+#     grid = convert.toList("". open("grid.txt", "r"))
+#     if (solver.Suduko(inputGrid, 0, 0)):
+#         print("Solving...")
+#         solver.puzzle(grid, grid)
+#     else:
+#         print("Solution does not exist:(")
 
 class colors:
     reset = "\033[0m"

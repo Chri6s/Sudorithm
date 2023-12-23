@@ -1,23 +1,22 @@
-import decoder
-import main
+from main import colors
 M = 9 # define the board size, its not really useful in our case, but, its here for code clarity.
 def puzzle(unsolvedGrid, solvedGrid):
     for i in range(M):
         for j in range(M):
             if j == 2 or j == 5:
                 if unsolvedGrid[i][j] == 0:
-                    print(main.colors.fg.generated + str(solvedGrid[i][j]) + main.colors.reset,end = "   ")
+                    print(colors.fg.generated + str(solvedGrid[i][j]) + colors.reset,end = "   ")
                 else:
-                    print(main.colors.fg.prefilled + str(solvedGrid[i][j]) + main.colors.reset,end = "   ")
+                    print(colors.fg.prefilled + str(solvedGrid[i][j]) + colors.reset,end = "   ")
             else:
                 if unsolvedGrid[i][j] == 0:
-                    print(main.colors.fg.generated + str(solvedGrid[i][j]),end = " " + main.colors.reset)
+                    print(colors.fg.generated + str(solvedGrid[i][j]),end = " " + colors.reset)
                 else:
-                    print(main.colors.fg.prefilled + str(solvedGrid[i][j]),end = " " + main.colors.reset)
+                    print(colors.fg.prefilled + str(solvedGrid[i][j]),end = " " + colors.reset)
         if (i == 2) or (i == 5):
             print()
         print()
-    print(main.colors.reset)
+    print(colors.reset)
 def solve(grid, row, col, num):
     for x in range(9):
         if grid[row][x] == num:

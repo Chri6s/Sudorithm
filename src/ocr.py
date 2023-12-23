@@ -3,7 +3,7 @@ from paddleocr import PaddleOCR
 import time
 import pyautogui
 import platform
-from main import unsolved
+from main import convert
 if platform.system() == "Linux":
     os.environ['DISPLAY'] = ':0'
 ocr = PaddleOCR(use_angle_cls=False, lang='en', show_log=False, max_text_length=1, use_gpu=False)
@@ -19,6 +19,7 @@ ssPos = [
     [[342, 808],[417, 808],[495,808],[575,808],[650,808],[729,808],[808,808],[885,808],[963,808]],
     ]
 def startgrab():
+    unsolved = convert.toList("", open("grid.txt", "r"))
     answer = input("Is the MS Sudoku window in fullscreen? (Y/n)\n >")
     if answer.lower() == "n":
         return print("Please maximize the window!")
