@@ -1,52 +1,58 @@
 import sys
-# sample data
-# 
-config = {
+import config
+import ocr
+import solver
+M = 9
+options = {
     "manualInput": 0,
     "disableDecoder": 0,
-    "disableOCR": 0,
     "repeater": 0
 }
 def start():
-    file = open("grid.txt", "w")
-    unsolved = [[],[],[],[],[],[],[],[],[]]
     # Check for flags
     for i in sys.argv:
         if (i.strip("-") == "m") or (i.strip("-") == "manualMode"):
-            config["manualInput"] = 1
+            options["manualInput"] = 1
         if (i.strip("-") == "dD") or (i.strip("-") == "disableDecoder"):
-            config["disableDecoder"] = 1
-        if (i.strip("-") == "dO") or (i.strip("-") == "disableOCR"):
-            config["disableOCR"] = 1
+            options["disableDecoder"] = 1
         if (i.strip("-") == "r") or (i.strip("-") == "repeater"):
             config["repeater"] = 1
-    if config["manualInput"] == 1 and config["disableOCR"] == 1:
-        Uinput = input(">")
-        if "," in Uinput:    
-            for x in range(0,9):
-                for y in range(0,9):
-                    unsolved[x].append(int(Uinput.split(" ")[y+9*x].strip(",")))
-        else:
-            for x in range(0,9):
-                for y in range(0,9):
-                    unsolved[x].append(int([*Uinput][y+9*x]))
-        file.write(convert.toString("", unsolved))
-        file.close()
-        startSolve(unsolved)
-    #startgrab()
-    #startmovement()
-    # if config["repeater"] == 1:
-    #     start()
-    # else: 
-    #     return
-# def startSolve(inputGrid):
-#     grid = convert.toList("". open("grid.txt", "r"))
-#     if (solver.Suduko(inputGrid, 0, 0)):
-#         print("Solving...")
-#         solver.puzzle(grid, grid)
-#     else:
-#         print("Solution does not exist:(")
-
+    if options["manualInput"] == 1:
+        config.configFuncs.manual("")
+    else:
+        ocr.startgrab()
+    startSolve
+    if options["disableDecoder"] == 1:
+        config.configFuncs.startMovement("")
+        
+        
+def startSolve(inputGrid):
+    grid = convert.toList("". open("grid.txt", "r"))
+    if (solver.Suduko(inputGrid, 0, 0)):
+        print("Solving...")
+        solver.puzzle(grid, grid)
+    else:
+        print("Solution does not exist:(")
+        
+        
+def puzzle(unsolvedGrid, solvedGrid):
+    for i in range(M):
+        for j in range(M):
+            if j == 2 or j == 5:
+                if unsolvedGrid[i][j] == 0:
+                    print(colors.fg.generated + str(solvedGrid[i][j]) + colors.reset,end = "   ")
+                else:
+                    print(colors.fg.prefilled + str(solvedGrid[i][j]) + colors.reset,end = "   ")
+            else:
+                if unsolvedGrid[i][j] == 0:
+                    print(colors.fg.generated + str(solvedGrid[i][j]),end = " " + colors.reset)
+                else:
+                    print(colors.fg.prefilled + str(solvedGrid[i][j]),end = " " + colors.reset)
+        if (i == 2) or (i == 5):
+            print()
+        print()
+    print(colors.reset)
+        
 class colors:
     reset = "\033[0m"
     class fg: 
@@ -74,7 +80,8 @@ class convert:
             for y in range(0,9):
                 stringified += str(list[x][y])
         return stringified
-
+    
+    
 if __name__ == "__main__":
     try:
         start()
