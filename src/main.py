@@ -4,11 +4,12 @@ import ocr
 import solver
 M = 9
 options = {
-    "manualInput": 0,
-    "disableDecoder": 0,
-    "repeater": 0
+    "manualInput": False,
+    "disableDecoder": False,
+    "repeater": True
 }
-def start():
+unsolved = [[],[],[],[],[],[],[],[],[]]
+def start() -> None:
     # Check for flags
     for i in sys.argv:
         if (i.strip("-") == "m") or (i.strip("-") == "manualMode"):
@@ -17,42 +18,33 @@ def start():
             options["disableDecoder"] = 1
         if (i.strip("-") == "r") or (i.strip("-") == "repeater"):
             config["repeater"] = 1
+    answer = input("Is the Bluestacks window in fullscreen? (Y/n)\n ==>")
+    if answer.lower() == "n":
+        return print("Please maximize the Bluestacks window!")
+    
     if options["manualInput"] == 1:
         config.configFuncs.manual("")
     else:
-        ocr.startgrab()
-    startSolve
+        ocr.startOCR()
     if options["disableDecoder"] == 1:
         config.configFuncs.startMovement("")
+    if options["repeater"] != False:
+        start() 
+    return None
         
         
-def startSolve(inputGrid):
+def startSolve(inputGrid) -> None:
     grid = convert.toList("". open("grid.txt", "r"))
     if (solver.Suduko(inputGrid, 0, 0)):
         print("Solving...")
         solver.puzzle(grid, grid)
     else:
         print("Solution does not exist:(")
+    return None
         
-        
-def puzzle(unsolvedGrid, solvedGrid):
-    for i in range(M):
-        for j in range(M):
-            if j == 2 or j == 5:
-                if unsolvedGrid[i][j] == 0:
-                    print(colors.fg.generated + str(solvedGrid[i][j]) + colors.reset,end = "   ")
-                else:
-                    print(colors.fg.prefilled + str(solvedGrid[i][j]) + colors.reset,end = "   ")
-            else:
-                if unsolvedGrid[i][j] == 0:
-                    print(colors.fg.generated + str(solvedGrid[i][j]),end = " " + colors.reset)
-                else:
-                    print(colors.fg.prefilled + str(solvedGrid[i][j]),end = " " + colors.reset)
-        if (i == 2) or (i == 5):
-            print()
-        print()
-    print(colors.reset)
-        
+#
+#       Classes
+#
 class colors:
     reset = "\033[0m"
     class fg: 

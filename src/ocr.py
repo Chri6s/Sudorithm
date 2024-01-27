@@ -3,7 +3,6 @@ from paddleocr import PaddleOCR
 import time
 import pyautogui
 import platform
-from main import convert
 if platform.system() == "Linux":
     os.environ['DISPLAY'] = ':0'
 ocr = PaddleOCR(use_angle_cls=False, lang='en', show_log=False, max_text_length=1, use_gpu=False)
@@ -18,11 +17,8 @@ ssPos = [
     [[342, 730],[417, 730],[495,730],[575,730],[650,730],[729,730],[808,730],[885,730],[963,730]],
     [[342, 808],[417, 808],[495,808],[575,808],[650,808],[729,808],[808,808],[885,808],[963,808]],
     ]
-def startgrab():
-    unsolved = convert.toList("", open("grid.txt", "r"))
-    answer = input("Is the MS Sudoku window in fullscreen? (Y/n)\n >")
-    if answer.lower() == "n":
-        return print("Please maximize the window!")
+def startOCR() -> list:
+    unsolvedInput = [[],[],[],[],[],[],[],[],[]]    
     print("Starting ScreenGrab™")
     time.sleep(3)
     for x in range(9):
@@ -34,6 +30,7 @@ def startgrab():
             readdata = ocr.ocr(f"./screenshots/sec{x}{y}.png", cls=False)
             #sample data from the OCR = [[[[[11.0, 6.0], [58.0, 6.0], [58.0, 68.0], [11.0, 68.0]], ('7', 0.9997418522834778)]]]
             if readdata == [[]]:
-                unsolved[x].append(0)
+                unsolvedInput[x].append(0)
             else:
-                unsolved[x].append(int(readdata[0][0][1][0]))
+                unsolvedInput[x].append(int(readdata[0][0][1][0]))
+    return unsolvedInput

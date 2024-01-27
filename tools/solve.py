@@ -1,3 +1,4 @@
+from generateBoard import genBoard
 M = 9
 grid = None
 unsolvedGrid = None
@@ -11,7 +12,7 @@ class colors:
 def start():
     grid = [[],[],[],[],[],[],[],[],[]]
     unsolvedGrid = [[],[],[],[],[],[],[],[],[]]
-    bemenet = input(">")
+    bemenet = genBoard()
     if "," in bemenet:    
         for x in range(0,9):
             for y in range(0,9):
